@@ -1,9 +1,19 @@
 # vitalrecordR
 
+Import data from [VitalRecorder](https://vitaldb.net/vital-recorder/).
+
 [VitalRecorder](https://vitaldb.net/vital-recorder/) is a free software application, that allows easy recording of data from a number of medical devices.
 
 This R package aims to ease importing this data into R, after it has been conveted to CSV files using a
 utility function provided by the VitalRecorder authors.
+
+## Install
+
+If devtools is not already installed: `install.packages('devtools')`
+
+``` r
+devtools::install_github('JohannesNE/vitalrecordR')
+```
 
 ## Use
 
@@ -39,3 +49,7 @@ vital_data <- read_vital(<output-folder>, tz = 'UTC')
 10 2019-07-11 11:54:25  75.4
 # … with 4,445 more rows
 ```
+
+### Linux
+
+vital_s3.exe runs with [wine](https://www.winehq.org/)
