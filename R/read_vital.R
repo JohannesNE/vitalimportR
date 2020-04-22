@@ -122,13 +122,16 @@ read_vital_event <- function(path, track, tz) {
 #'
 #' @param path Path to folder containing the files exported by utilities/vital_s3.exe
 #' @param tz Timezone used for converting Unix epochs to datetime.
+#' @param nested_list Create a nested list if tracks inside a list of devices.
+#' Necessary to deal with duplicate track names between devices.
+#' If FALSE, an error is given if there are any duplicate track names.
 #' @return A (nested) list of tracks.
 #' @examples
 #' test_folder <- system.file('extdata', 'test_data_demo', package = 'vitalrecordR')
 #' read_vital(test_folder, tz = 'CET')
 #' @importFrom rlang .data
 #' @export
-read_vital <- function(path, tz = 'UTC') {
+read_vital <- function(path, tz = 'UTC', nested_list = TRUE) {
     header <- read_vital_header(path, tz = tz)
 
     # Give a name to the EVENT 'device'
@@ -160,10 +163,21 @@ read_vital <- function(path, tz = 'UTC') {
 
     }
 
-    # Split dataframe into a nested list of tracks inside device
-    header_list_device <- split(header, header$device)
-    header_list_device_track <- lapply(header_list_device, function(x) split(x, x$track))
+    if (nested_list) {
 
-    # Nested lapply, to apply select_vital_loader to second layer (tracks)
-    lapply(header_list_device_track, lapply, select_vital_loader)
+        # Split dataframe into a nested list of tracks inside device
+        header_list_device <- split(header, header$device)
+        header_list_device_track <- lapply(header_list_device, function(x) split(x, x$track))
+
+        # Nested lapply, to apply select_vital_loader to second layer (tracks)
+        lapply(header_list_device_track, lapply, select_vital_loader)
+    }
+
+    else {
+        stopifnot(!anyDuplicated(header$track))
+
+        header_list_track <- split(header, header$track)
+        lapply(header_list_track, select_vital_loader)
+
+    }
 }

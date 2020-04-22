@@ -4,12 +4,16 @@
 \alias{read_vital}
 \title{Read Vital}
 \usage{
-read_vital(path, tz = "UTC")
+read_vital(path, tz = "UTC", nested_list = TRUE)
 }
 \arguments{
 \item{path}{Path to folder containing the files exported by utilities/vital_s3.exe}
 
 \item{tz}{Timezone used for converting Unix epochs to datetime.}
+
+\item{nested_list}{Create a nested list if tracks inside a list of devices.
+Necessary to deal with duplicate track names between devices.
+If FALSE, an error is given if there are any duplicate track names.}
 }
 \value{
 A (nested) list of tracks.
