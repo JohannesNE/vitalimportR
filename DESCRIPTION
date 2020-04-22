@@ -11,12 +11,13 @@ Description: VitalRecorder is a free software application (https://vitaldb.net/v
     recording of data from a number of medical devices.
     This R package aims to ease importing this data into R, after it has been conveted to CSV files using a
     utility function provided by the VitalRecorder authors.
-License: MIT
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Imports: 
     readr,
     dplyr,
-    tidyr
+    tidyr,
+    rlang
 RoxygenNote: 7.1.0
 Roxygen: list(markdown = TRUE)

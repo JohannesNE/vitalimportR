@@ -2,6 +2,7 @@
 #'
 #' @param path Path to folder containing the files exported by utilities/vital_s3.exe
 #' @param tz Timezone used for converting Unix epochs to datetime.
+#' @importFrom rlang .data
 #' @export
 read_vital_header <- function(path, tz) {
     res <- readr::read_csv(paste0(path, '/trks.csv'),
@@ -41,14 +42,14 @@ read_vital_header <- function(path, tz) {
                         offset = readr::col_double()
                     )
     )
-    res <- dplyr::mutate(res, starttime_epoch = starttime,
-                  endtime_epoch = endtime)
-    res <- dplyr::mutate(res, starttime = as.POSIXct(starttime, origin="1970-01-01", tz = tz),
-                   endtime = as.POSIXct(endtime, origin="1970-01-01", tz = tz))
+    res <- dplyr::mutate(res, starttime_epoch = .data$starttime,
+                  endtime_epoch = .data$endtime)
+    res <- dplyr::mutate(res, starttime = as.POSIXct(.data$starttime, origin="1970-01-01", tz = tz),
+                   endtime = as.POSIXct(.data$endtime, origin="1970-01-01", tz = tz))
 
-    res <- tidyr::separate(res, track, into = c('device', 'track'), sep = '/')
+    res <- tidyr::separate(res, .data$track, into = c('device', 'track'), sep = '/')
 
-    within(res, rm(x3, x4, x5, x6))
+    dplyr::select(res, - dplyr::starts_with('x'))
 }
 
 # read file of type wave
@@ -93,7 +94,7 @@ read_vital_numeric <- function(path, track, tz) {
                         readr::col_double()
                     ))
 
-    dplyr::mutate(res, time = as.POSIXct(time, origin="1970-01-01", tz = tz))
+    dplyr::mutate(res, time = as.POSIXct(.data$time, origin="1970-01-01", tz = tz))
 }
 
 # read file of type EVENT
@@ -104,7 +105,7 @@ read_vital_event <- function(path, track, tz) {
                                readr::col_character()
                            ))
 
-    dplyr::mutate(res, time = as.POSIXct(time, origin="1970-01-01", tz = tz))
+    dplyr::mutate(res, time = as.POSIXct(.data$time, origin="1970-01-01", tz = tz))
 }
 
 #' Read Vital
@@ -125,6 +126,7 @@ read_vital_event <- function(path, track, tz) {
 #' @examples
 #' test_folder <- system.file('extdata', 'test_data_demo', package = 'vitalrecordR')
 #' read_vital(test_folder, tz = 'CET')
+#' @importFrom rlang .data
 #' @export
 read_vital <- function(path, tz = 'UTC') {
     header <- read_vital_header(path, tz = tz)
