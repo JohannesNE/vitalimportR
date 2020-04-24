@@ -122,7 +122,7 @@ read_vital_event <- function(path, track, tz) {
 #'
 #' @param path Path to folder containing the files exported by utilities/vital_s3.exe
 #' @param tz Timezone used for converting Unix epochs to datetime.
-#' @param nested_list Create a nested list if tracks inside a list of devices.
+#' @param nested_list Create a nested list of tracks inside a list of devices.
 #' Necessary to deal with duplicate track names between devices.
 #' If FALSE, an error is given if there are any duplicate track names.
 #' @return A (nested) list of tracks.
@@ -170,14 +170,17 @@ read_vital <- function(path, tz = 'UTC', nested_list = TRUE) {
         header_list_device_track <- lapply(header_list_device, function(x) split(x, x$track))
 
         # Nested lapply, to apply select_vital_loader to second layer (tracks)
-        lapply(header_list_device_track, lapply, select_vital_loader)
+        res <- lapply(header_list_device_track, lapply, select_vital_loader)
     }
 
     else {
         stopifnot(!anyDuplicated(header$track))
 
         header_list_track <- split(header, header$track)
-        lapply(header_list_track, select_vital_loader)
+        res <- lapply(header_list_track, select_vital_loader)
 
     }
+
+    res$.header <- header
+    res
 }
