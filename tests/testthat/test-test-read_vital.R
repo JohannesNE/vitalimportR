@@ -13,10 +13,10 @@ test_that("imported header has the right size", {
 })
 
 test_that("read_vital imports all signals", {
-    expect_equal(length(test_rec_nest), 3)
-    expect_equal(length(test_rec_unnest), 19)
-    expect_equal(length(test_rec_nest$Intellivue$ABP$ABP), 4455)
-    mean_pleth <- mean(test_rec_nest$Intellivue$PLETH$PLETH)
+    expect_equal(length(test_rec_nest$tracks), 2)
+    expect_equal(length(test_rec_unnest$tracks), 18)
+    expect_equal(length(test_rec_nest$tracks$Intellivue$ABP$ABP), 4455)
+    mean_pleth <- mean(test_rec_nest$tracks$Intellivue$PLETH$PLETH)
     expect_gt(mean_pleth, 50.4)
     expect_lt(mean_pleth, 50.5)
 })

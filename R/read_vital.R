@@ -172,17 +172,16 @@ read_vital <- function(path, tz = 'UTC', nested_list = TRUE) {
         header_list_device_track <- lapply(header_list_device, function(x) split(x, x$track))
 
         # Nested lapply, to apply select_vital_loader to second layer (tracks)
-        res <- lapply(header_list_device_track, lapply, select_vital_loader)
+        tracks <- lapply(header_list_device_track, lapply, select_vital_loader)
     }
 
     else {
         stopifnot(!anyDuplicated(header$track))
 
         header_list_track <- split(header, header$track)
-        res <- lapply(header_list_track, select_vital_loader)
+        tracks <- lapply(header_list_track, select_vital_loader)
 
     }
 
-    res$.header <- header
-    res
+    list(header = header, tracks = tracks)
 }
