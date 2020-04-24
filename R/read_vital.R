@@ -5,6 +5,8 @@
 #' @importFrom rlang .data
 #' @export
 read_vital_header <- function(path, tz) {
+    stopifnot(length(path) == 1)
+
     res <- readr::read_csv(paste0(path, '/trks.csv'),
                     col_names = c('file',
                                   'record_name',
