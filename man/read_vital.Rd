@@ -11,7 +11,7 @@ read_vital(path, tz = "UTC", nested_list = TRUE)
 
 \item{tz}{Timezone used for converting Unix epochs to datetime.}
 
-\item{nested_list}{Create a nested list if tracks inside a list of devices.
+\item{nested_list}{Create a nested list of tracks inside a list of devices.
 Necessary to deal with duplicate track names between devices.
 If FALSE, an error is given if there are any duplicate track names.}
 }
