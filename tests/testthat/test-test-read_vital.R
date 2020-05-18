@@ -20,3 +20,12 @@ test_that("read_vital imports all signals", {
     expect_gt(mean_pleth, 50.4)
     expect_lt(mean_pleth, 50.5)
 })
+
+test_that("signals has correct attributes", {
+    # Unit
+    expect_equal(unname(sapply(test_rec_unnest$tracks, attr, 'vital.unit')),
+                 test_rec_unnest$header$unit[order(test_rec_unnest$header$track)])
+    # Sample Rate
+    expect_equal(unname(sapply(test_rec_unnest$tracks, attr, 'vital.samplerate')),
+                 test_rec_unnest$header$sample_rate[order(test_rec_unnest$header$track)])
+})

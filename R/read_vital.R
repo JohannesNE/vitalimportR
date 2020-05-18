@@ -141,27 +141,32 @@ read_vital <- function(path, tz = 'UTC', nested_list = TRUE) {
 
     select_vital_loader <- function(row) {
         if (row$track_type == 'N') {
-            return(read_vital_numeric(path = paste0(path, '/', row$file, '.csv.gz'),
+            res <- read_vital_numeric(path = paste0(path, '/', row$file, '.csv.gz'),
                                       track = row$track,
-                                      tz = tz))
+                                      tz = tz)
         }
 
         if (row$track_type == 'W') {
-            return(read_vital_wave(path = paste0(path, '/', row$file, '.csv.gz'),
+            res <- read_vital_wave(path = paste0(path, '/', row$file, '.csv.gz'),
                                    track = row$track,
                                    starttime_e = row$starttime_epoch,
                                    endtime_e = row$endtime_epoch,
                                    sample_rate = row$sample_rate,
                                    gain = row$gain,
                                    offset = row$offset,
-                                   tz = tz))
+                                   tz = tz)
         }
 
         if (row$track_type == 'S') {
-            return(read_vital_event(paste0(path, '/', row$file, '.csv.gz'),
+            res <- read_vital_event(paste0(path, '/', row$file, '.csv.gz'),
                                     track = row$track,
-                                    tz = tz))
+                                    tz = tz)
         }
+
+        attr(res, 'vital.unit') <- row$unit
+        attr(res, 'vital.samplerate') <- row$sample_rate
+
+        res
 
     }
 
