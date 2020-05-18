@@ -1,4 +1,4 @@
-# vitalrecordR
+# vitalimportR
 
 Import data from [VitalRecorder](https://vitaldb.net/vital-recorder/).
 
@@ -12,7 +12,7 @@ utility function provided by the VitalRecorder authors.
 If devtools is not already installed: `install.packages('devtools')`
 
 ``` r
-devtools::install_github('JohannesNE/vitalrecordR')
+devtools::install_github('JohannesNE/vitalimportR')
 ```
 
 ## Use

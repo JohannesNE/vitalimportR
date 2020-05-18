@@ -1,4 +1,4 @@
-Package: vitalrecordR
+Package: vitalimportR
 Title: Loads Data From VitalRecorder That Have Been Converted Using vital_s3.exe
 Version: 0.1.0.0
 Authors@R: 

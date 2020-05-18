@@ -1,7 +1,7 @@
 context("Read Vital data")
-library(vitalrecordR)
+library(vitalimportR)
 
-test_path <- system.file('extdata','test_data_demo', package = 'vitalrecordR')
+test_path <- system.file('extdata','test_data_demo', package = 'vitalimportR')
 
 test_rec_nest <- read_vital(test_path, tz = 'CET')
 test_rec_unnest <- read_vital(test_path, tz = 'CET', nested_list = FALSE)

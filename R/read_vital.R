@@ -129,7 +129,7 @@ read_vital_event <- function(path, track, tz) {
 #' If FALSE, an error is given if there are any duplicate track names.
 #' @return A (nested) list of tracks.
 #' @examples
-#' test_folder <- system.file('extdata', 'test_data_demo', package = 'vitalrecordR')
+#' test_folder <- system.file('extdata', 'test_data_demo', package = 'vitalimportR')
 #' read_vital(test_folder, tz = 'CET')
 #' @importFrom rlang .data
 #' @export

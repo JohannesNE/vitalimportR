@@ -1,4 +1,4 @@
 library(testthat)
-library(vitalrecordR)
+library(vitalimportR)
 
-test_check("vitalrecordR")
+test_check("vitalimportR")

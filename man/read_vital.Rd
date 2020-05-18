@@ -30,6 +30,6 @@ From the command line:
 \verb{vital_s3.exe <input.vital> <output-folder>}
 }
 \examples{
-test_folder <- system.file('extdata', 'test_data_demo', package = 'vitalrecordR')
+test_folder <- system.file('extdata', 'test_data_demo', package = 'vitalimportR')
 read_vital(test_folder, tz = 'CET')
 }
