@@ -1,8 +1,8 @@
 # vitalimportR
 
-Import data from [VitalRecorder](https://vitaldb.net/vital-recorder/).
+Import data from [Vital Recorder](https://vitaldb.net/vital-recorder/).
 
-[VitalRecorder](https://vitaldb.net/vital-recorder/) is a free software application, that allows easy recording of data from a number of medical devices.
+[Vital Recorder](https://vitaldb.net/vital-recorder/) is a free software application, that allows easy recording of data from a number of medical devices.
 
 This R package aims to ease importing this data into R, after it has been conveted to CSV files using a
 utility function provided by the VitalRecorder authors.
