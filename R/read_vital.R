@@ -126,6 +126,7 @@ read_vital_event <- function(path, track, tz) {
 #' @param tz Timezone used for converting Unix epochs to datetime.
 #' @param nested_list Create a nested list of tracks inside a list of devices.
 #' Necessary to deal with duplicate track names between devices.
+#' @param tracks_only Do not include header in returned list.
 #' If FALSE, an error is given if there are any duplicate track names.
 #' @return A (nested) list of tracks.
 #' @examples
@@ -133,7 +134,7 @@ read_vital_event <- function(path, track, tz) {
 #' read_vital(test_folder, tz = 'CET')
 #' @importFrom rlang .data
 #' @export
-read_vital <- function(path, tz = 'UTC', nested_list = TRUE) {
+read_vital <- function(path, tz = 'UTC', nested_list = TRUE, tracks_only = FALSE) {
     header <- read_vital_header(path, tz = tz)
 
     # Give a name to the EVENT 'device'
@@ -187,6 +188,8 @@ read_vital <- function(path, tz = 'UTC', nested_list = TRUE) {
         tracks <- lapply(header_list_track, select_vital_loader)
 
     }
+
+    if (tracks_only) return(tracks)
 
     list(header = header, tracks = tracks)
 }

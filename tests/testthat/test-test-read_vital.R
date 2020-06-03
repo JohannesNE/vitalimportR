@@ -29,3 +29,10 @@ test_that("signals has correct attributes", {
     expect_equal(unname(sapply(test_rec_unnest$tracks, attr, 'signal.samplerate')),
                  test_rec_unnest$header$sample_rate[order(test_rec_unnest$header$track)])
 })
+
+test_that("Tracks_only works", {
+    tracks_only <- read_vital(test_path, tracks_only = TRUE, tz = 'CET')
+
+    expect_named(tracks_only, c('Intellivue', 'VITAL'))
+
+})
