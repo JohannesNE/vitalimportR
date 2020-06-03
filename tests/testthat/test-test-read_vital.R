@@ -23,9 +23,9 @@ test_that("read_vital imports all signals", {
 
 test_that("signals has correct attributes", {
     # Unit
-    expect_equal(unname(sapply(test_rec_unnest$tracks, attr, 'vital.unit')),
+    expect_equal(unname(sapply(test_rec_unnest$tracks, attr, 'signal.unit')),
                  test_rec_unnest$header$unit[order(test_rec_unnest$header$track)])
     # Sample Rate
-    expect_equal(unname(sapply(test_rec_unnest$tracks, attr, 'vital.samplerate')),
+    expect_equal(unname(sapply(test_rec_unnest$tracks, attr, 'signal.samplerate')),
                  test_rec_unnest$header$sample_rate[order(test_rec_unnest$header$track)])
 })

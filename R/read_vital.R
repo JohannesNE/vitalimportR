@@ -163,8 +163,8 @@ read_vital <- function(path, tz = 'UTC', nested_list = TRUE) {
                                     tz = tz)
         }
 
-        attr(res, 'vital.unit') <- row$unit
-        attr(res, 'vital.samplerate') <- row$sample_rate
+        attr(res, 'signal.unit') <- row$unit
+        attr(res, 'signal.samplerate') <- row$sample_rate
 
         res
 
