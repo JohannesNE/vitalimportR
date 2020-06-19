@@ -18,8 +18,8 @@ read_vital_header <- function(path, tz) {
                                   'x4', #unknown
                                   'x5', #unknown
                                   'track_type',
-                                  'starttime',
-                                  'endtime',
+                                  'starttime_epoch',
+                                  'endtime_epoch',
                                   'sample_rate',
                                   'x6', #unknown
                                   'gain',
@@ -36,18 +36,16 @@ read_vital_header <- function(path, tz) {
                         x4 = readr::col_double(),
                         x5 = readr::col_double(),
                         track_type = readr::col_character(),
-                        starttime = readr::col_double(),
-                        endtime = readr::col_double(),
+                        starttime_epoch = readr::col_double(),
+                        endtime_epoch = readr::col_double(),
                         sample_rate = readr::col_double(),
                         x6 = readr::col_double(),
                         gain = readr::col_double(),
                         offset = readr::col_double()
                     )
     )
-    res <- dplyr::mutate(res, starttime_epoch = .data$starttime,
-                  endtime_epoch = .data$endtime)
-    res <- dplyr::mutate(res, starttime = as.POSIXct(.data$starttime, origin="1970-01-01", tz = tz),
-                   endtime = as.POSIXct(.data$endtime, origin="1970-01-01", tz = tz))
+    res <- dplyr::mutate(res, starttime = as.POSIXct(.data$starttime_epoch, origin="1970-01-01", tz = tz),
+                   endtime = as.POSIXct(.data$endtime_epoch, origin="1970-01-01", tz = tz))
 
     res <- tidyr::separate(res, .data$track, into = c('device', 'track'), sep = '/')
 
