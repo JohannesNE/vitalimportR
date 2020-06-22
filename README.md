@@ -7,6 +7,8 @@ Import data from [Vital Recorder](https://vitaldb.net/vital-recorder/).
 This R package aims to ease importing this data into R, after it has been conveted to CSV files using a
 utility function provided by the VitalRecorder authors.
 
+> ⚠️ **Warning:** There may be a drift in time between records. `vital_s3.exe` exports only samples, starttime, sample rate and endtime. Evenly spacing samples between starttime and endtime should create a signal close to the recorded signal, but apparently, it does not. **It is recommended to save the vital record as .edf instead.**
+
 ## Install
 
 If devtools is not already installed: `install.packages('devtools')`
